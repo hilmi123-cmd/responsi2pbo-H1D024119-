@@ -1,0 +1,59 @@
+package pertemuan8;
+
+class ProgrammerMagang implements KaryawanKontrak, AksesSistem {
+    private String nama;
+    private double gajiPerJam;
+    private String pinRahasia;
+    private boolean sedangLogin;
+
+
+    public ProgrammerMagang(String nama, double gajiPerJam, String pinRahasia) {
+        this.nama = nama;
+        this.gajiPerJam = gajiPerJam;
+        this.pinRahasia = pinRahasia;
+        this.sedangLogin = false;
+    }
+
+    @Override
+    public double hitungGaji(int jamKerja) {
+        double totalGaji = jamKerja * gajiPerJam;
+        System.out.printf("Gaji %s (%d jam) adalah: Rp %.1f%n", nama, jamKerja, totalGaji);
+        return totalGaji;
+    }
+
+    @Override
+    public void login(String pin) {
+        if (pin.equals(pinRahasia)) {
+            sedangLogin = true;
+            System.out.println("Login Berhasil. Selamat datang, " + nama + "!");
+        } else {
+            System.out.println("Login Gagal: PIN salah.");
+        }
+    }
+
+    @Override
+    public void perpanjangKontrak(int durasiBulan) {
+        System.out.println("Kontrak diperpanjang " + durasiBulan + " bulan.");
+    }
+
+    @Override
+    public void logout() {
+        if (sedangLogin) {
+            sedangLogin = false;
+            System.out.println(nama + " berhasil logout.");
+        } else {
+            System.out.println(nama + " sudah dalam kondisi logout.");
+        }
+    }
+
+
+    @Override
+    public String getRoleAkses() {
+        return "Magang IT";
+    }
+
+    @Override
+    public String getStatusCuti() {
+        return "Tersedia 5 hari";
+    }
+}
